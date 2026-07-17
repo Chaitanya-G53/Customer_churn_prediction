@@ -7,7 +7,7 @@ import streamlit as st
 # Resolve paths relative to this script's own folder, not the process's
 # working directory (Streamlit Cloud does not guarantee cwd == app folder).
 APP_DIR = os.path.dirname(os.path.abspath(__file__))
-MODEL_PATH = os.path.join(APP_DIR, "model.pkl")
+MODEL_PATH = os.path.join(APP_DIR, "model1_.pkl")
 
 # --------------------------------------------------------------------------------
 # PAGE CONFIG
@@ -112,9 +112,9 @@ st.markdown(
 def load_model(path=MODEL_PATH):
     if not os.path.exists(path):
         st.error(
-            f"❌ Could not find `model.pkl` at:\n\n`{path}`\n\n"
-            "Make sure `model.pkl` is committed to the same GitHub repo folder as `app.py` "
-            "(same directory, exact filename `model.pkl`, not `.gitignore`d, and under GitHub's "
+            f"❌ Could not find `model1_.pkl` at:\n\n`{path}`\n\n"
+            "Make sure `model1_.pkl` is committed to the same GitHub repo folder as `app.py` "
+            "(same directory, exact filename `model1_.pkl`, not `.gitignore`d, and under GitHub's "
             "100MB file size limit)."
         )
         st.stop()
