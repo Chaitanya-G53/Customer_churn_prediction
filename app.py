@@ -1,7 +1,13 @@
+import os
 import pickle
 import numpy as np
 import pandas as pd
 import streamlit as st
+
+# Resolve paths relative to this script's own folder, not the process's
+# working directory (Streamlit Cloud does not guarantee cwd == app folder).
+APP_DIR = os.path.dirname(os.path.abspath(__file__))
+MODEL_PATH = os.path.join(APP_DIR, "model.pkl")
 
 # --------------------------------------------------------------------------------
 # PAGE CONFIG
@@ -103,7 +109,15 @@ st.markdown(
 # LOAD MODEL
 # --------------------------------------------------------------------------------
 @st.cache_resource
-def load_model(path="model.pkl"):
+def load_model(path=MODEL_PATH):
+    if not os.path.exists(path):
+        st.error(
+            f"❌ Could not find `model.pkl` at:\n\n`{path}`\n\n"
+            "Make sure `model.pkl` is committed to the same GitHub repo folder as `app.py` "
+            "(same directory, exact filename `model.pkl`, not `.gitignore`d, and under GitHub's "
+            "100MB file size limit)."
+        )
+        st.stop()
     with open(path, "rb") as f:
         return pickle.load(f)
 
